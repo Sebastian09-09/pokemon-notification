@@ -6,7 +6,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from PIL import Image
-import server
 import os
 
 chrome_options = webdriver.ChromeOptions()
