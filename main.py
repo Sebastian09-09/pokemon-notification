@@ -7,9 +7,16 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from PIL import Image
 import server
+import os
 
-PATH = "C:\\Users\\ffuru\\Desktop\\pokemon-go-notifier\\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
 driver.get(f'https://web.whatsapp.com')
 time.sleep(5)
 server.keep_alive()
