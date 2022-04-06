@@ -19,7 +19,6 @@ driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chr
 
 driver.get(f'https://web.whatsapp.com')
 time.sleep(5)
-server.keep_alive()
 for i in range(20):
 	driver.save_screenshot("static/qr.png")
 	im = Image.open("static/qr.png")
