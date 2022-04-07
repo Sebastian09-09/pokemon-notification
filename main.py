@@ -9,6 +9,7 @@ import time
 from PIL import Image
 from threading import Thread 
 import asyncio
+import os
 
 number = '+919039997961'
 prefix = '#'
