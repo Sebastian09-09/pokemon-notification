@@ -13,7 +13,6 @@ import os
 
 number = '+919039997961'
 prefix = '#'
-look = False
 PATH = "C:\\Users\\ffuru\\Desktop\\pokemon-go-notifier\\chromedriver.exe"
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
@@ -59,7 +58,6 @@ def checkDM():
 		return True
 
 def Login():
-	global look
 	while checkLogin():
 		driver.save_screenshot("static/qr.png")
 		im = Image.open("static/qr.png")
@@ -70,7 +68,6 @@ def Login():
 	while checkDM():
 		driver.get(f'https://web.whatsapp.com/send?phone={number}')
 		time.sleep(30)
-	look = True
 	print('Interface Loaded!')
 
 
@@ -97,7 +94,7 @@ async def on_message(message):
 					f = discord.File(fh, filename='static/qr.png')
 				await message.channel.send(file=f)
 
-		if look and message.author.id in webhooks and message.guild.id == 864766766932426772:
+		if not checkDM() and message.author.id in webhooks and message.guild.id == 864766766932426772:
 			async for msg in message.channel.history(limit=10):
 				if msg.id == message.id:
 					for embed in msg.embeds:
@@ -112,14 +109,13 @@ async def on_message(message):
 						name = name.split('<')[0]
 					shiny = True if ':shiny:' in title else False
 					gender = 'male' if ':male:' in title else 'female' if ':female:' in title else 'undefined'
-					image = embedInfo['thumbnail']['url']
 					fields = embedInfo['fields']
 
 					type = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
 
 
 					channelName = channelName[2:]
-					type.send_keys(f'Channel Name - #{channelName} || Coordinates - {coordinates} || Pokémon - {name} || Shiny - {shiny} || Gender - {gender} || Image - {image} ')
+					type.send_keys(f'Channel Name - #{channelName} || Coordinates - {coordinates} || Pokémon - {name} || Shiny - {shiny} || Gender - {gender} ')
 					
 					types = []
 					generation = ''
