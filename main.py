@@ -33,8 +33,7 @@ def checkLogin():
 		return True
 	except:
 		try:
-			page = driver.find_element(by=By.CLASS_NAME, value='_2WuPw')
-			if str(page.text).startswith('To use WhatsApp on your computer:'):
+			if 'To use WhatsApp on your computer:' in driver.page_source:
 				return True
 			else:
 				print('from else')
