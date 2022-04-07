@@ -16,6 +16,9 @@ chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 
 chrome_options.add_argument("--headless")
 chrome_options.add_argument('--ignore-certificate-errors')
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+
 driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 number = '+919039997961'
@@ -35,10 +38,8 @@ def checkLogin():
 			if 'To use WhatsApp on your computer:' in driver.page_source:
 				return True
 			else:
-				print('from else')
 				return False
 		except:
-			print('from except')
 			return False
 
 def checkDM():
