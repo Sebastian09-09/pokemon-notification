@@ -9,23 +9,30 @@ import time
 from PIL import Image
 from threading import Thread 
 import asyncio
-import os
-
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-
-chrome_options.add_argument("--headless")
-chrome_options.add_argument('--ignore-certificate-errors')
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-
-driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 number = '+919039997961'
 prefix = '#'
 look = False
+PATH = "C:\\Users\\ffuru\\Desktop\\pokemon-go-notifier\\chromedriver.exe"
 
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
+options = webdriver.ChromeOptions()
+options.headless = True
+options.add_argument(f'user-agent={user_agent}')
+options.add_argument("--window-size=1920,1080")
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--allow-running-insecure-content')
+options.add_argument("--disable-extensions")
+options.add_argument("--proxy-server='direct://'")
+options.add_argument("--proxy-bypass-list=*")
+options.add_argument("--start-maximized")
+options.add_argument('--disable-gpu')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(executable_path="chromedriver.exe", options=options)
+#driver = webdriver.Chrome(PATH)
 driver.get(f'https://web.whatsapp.com/send?phone={number}')
+
 
 
 def checkLogin():
@@ -35,7 +42,8 @@ def checkLogin():
 		return True
 	except:
 		try:
-			if 'To use WhatsApp on your computer:' in driver.page_source:
+			page = driver.find_element(by=By.CLASS_NAME, value='_2WuPw')
+			if str(page.text).startswith('To use WhatsApp on your computer:'):
 				return True
 			else:
 				return False
@@ -51,11 +59,10 @@ def checkDM():
 
 def Login():
 	global look
-	for i in range(20):
+	while checkLogin():
 		driver.save_screenshot("static/qr.png")
 		im = Image.open("static/qr.png")
-		left = 965;top = 225;right = 1368;bottom = 628
-		im.crop((left,top,right,bottom)).save('static/qr.png')
+		im.crop((1084,193,1355,463)).save('static/qr.png')
 		time.sleep(1)
 	print('Logged In!')
 	driver.get(f'https://web.whatsapp.com/send?phone={number}')
