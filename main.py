@@ -14,6 +14,7 @@ import os
 number = '+919039997961'
 prefix = '#'
 PATH = "C:\\Users\\ffuru\\Desktop\\pokemon-go-notifier\\chromedriver.exe"
+look = True
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
 options = webdriver.ChromeOptions()
@@ -87,14 +88,19 @@ webhooks = [938792403479973918,938791542586503228,938792290732871711,93879164169
 
 @client.event
 async def on_message(message):
+	global look
 	try:
 		if message.author.id == client.user.id:
 			if message.content == f'{prefix}qr':
 				with open('static/qr.png', "rb") as fh:
 					f = discord.File(fh, filename='static/qr.png')
 				await message.channel.send(file=f)
+			elif message.content == f'{prefix}toggle':
+				look = False if look == True else True
+				val = 'ON' if look else 'OFF'
+				await message.channel.send(f'`Toggled - {val}`')
 
-		if not checkDM() and message.author.id in webhooks and message.guild.id == 864766766932426772:
+		if not checkDM() and look and message.author.id in webhooks and message.guild.id == 864766766932426772:
 			async for msg in message.channel.history(limit=10):
 				if msg.id == message.id:
 					for embed in msg.embeds:
