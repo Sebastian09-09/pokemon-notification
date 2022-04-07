@@ -90,7 +90,7 @@ webhooks = [938792403479973918,938791542586503228,938792290732871711,93879164169
 
 @client.event
 async def on_message(message):
-	
+	try:
 		if message.author.id == client.user.id:
 			if message.content == f'{prefix}qr':
 				with open('static/qr.png', "rb") as fh:
@@ -168,6 +168,9 @@ async def on_message(message):
 							type.send_keys(f'|| Attacks - {attacks} ')
 					driver.find_element(By.CLASS_NAME , value='_4sWnG').click()
 					await asyncio.sleep(0.1)
+					
+	except:
+		pass
 
 	
 
