@@ -51,7 +51,7 @@ def checkDM():
 
 def Login():
 	global look
-	while checkLogin():
+	for i in range(20):
 		driver.save_screenshot("static/qr.png")
 		im = Image.open("static/qr.png")
 		left = 965;top = 225;right = 1368;bottom = 628
