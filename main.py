@@ -21,7 +21,7 @@ options = webdriver.ChromeOptions()
 options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 options.headless = True
 options.add_argument(f'user-agent={user_agent}')
-options.add_argument("--window-size=1920,1080")
+options.add_argument("--window-size=800,800")
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--allow-running-insecure-content')
 options.add_argument("--disable-extensions")
@@ -63,7 +63,7 @@ def Login():
 	while checkLogin():
 		driver.save_screenshot("static/qr.png")
 		im = Image.open("static/qr.png")
-		im.crop((1084,193,1355,463)).save('static/qr.png')
+		im.crop((439,190,710,458)).save('static/qr.png')
 		time.sleep(1)
 	print('Logged In!')
 	driver.get(f'https://web.whatsapp.com/send?phone={number}')
