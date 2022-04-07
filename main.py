@@ -24,9 +24,7 @@ prefix = '#'
 look = False
 
 driver.get(f'https://web.whatsapp.com/send?phone={number}')
-def element_presence(driver, by, xpath, time):
-	element_present = EC.presence_of_element_located((By.XPATH, xpath))
-	WebDriverWait(driver, time).until(element_present)
+
 
 def checkLogin():
 	try:
@@ -39,8 +37,10 @@ def checkLogin():
 			if str(page.text).startswith('To use WhatsApp on your computer:'):
 				return True
 			else:
+				print('from else')
 				return False
 		except:
+			print('from except')
 			return False
 
 def checkDM():
