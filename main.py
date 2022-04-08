@@ -11,9 +11,9 @@ from threading import Thread
 import asyncio
 import os
 
-number = '+919039997961'
+token = 
+number = '+91'
 prefix = '#'
-PATH = "C:\\Users\\ffuru\\Desktop\\pokemon-go-notifier\\chromedriver.exe"
 look = True
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
@@ -176,4 +176,4 @@ async def on_message(message):
 
 	
 
-client.run('NzkwOTIxMjQ0NjUxNTUyNzY5.YhG0ww.vyKF1x-fKIqc68We5malAtigtNo',bot=False)
+client.run(token ,bot=False)
